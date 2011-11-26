@@ -16,10 +16,14 @@ using Microsoft.Devices.Sensors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
+using Microsoft.Phone.Shell;
+
 namespace LaundryMinder
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private ProgressIndicator progressIndicator = null;
+        
         AccelerometerShakeDetection asdSensor;
         DateTime lastShakeTime = DateTime.UtcNow;
 
@@ -44,6 +48,17 @@ namespace LaundryMinder
             this.LoadSettings();
         }
 
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // attach progress indicator
+            if (progressIndicator == null)
+            {
+                progressIndicator = new ProgressIndicator();
+                progressIndicator.IsVisible = true;
+                SystemTray.ProgressIndicator = progressIndicator;
+            }
+        }
+
         public void AccelerometerShakeDetected(object sender, EventArgs e)
         {
             lastShakeTime = DateTime.UtcNow;
@@ -59,6 +74,8 @@ namespace LaundryMinder
 
             if (this.button1.Content.ToString() == "start")
             {
+                this.EnableProgressBar();
+                
                 dt = new System.Windows.Threading.DispatcherTimer();
                 dt.Interval = new TimeSpan(0, 0, 30);
                 dt.Tick += new EventHandler(dt_Tick);
@@ -83,6 +100,8 @@ namespace LaundryMinder
                 this.textBox1.IsEnabled = true;
                 this.button2.IsEnabled = true;
                 this.button1.Content = "start";
+
+                this.DisableProgressBar();
             }
 
             this.SaveSettings();
@@ -236,6 +255,18 @@ namespace LaundryMinder
             catch
             {
             }
+        }
+
+        private void EnableProgressBar()
+        {
+            if (progressIndicator != null)
+                progressIndicator.IsIndeterminate = true;
+        }
+
+        private void DisableProgressBar()
+        {
+            if (progressIndicator != null)
+                progressIndicator.IsIndeterminate = false;
         }
     }
 }

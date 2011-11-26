@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
   <App xmlns="" ProductID="{30593869-ad05-404c-b056-9fe295a61587}" Title="LaundryMinder" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="LaundryMinder author" Description="Sample description" Publisher="LaundryMinder">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
